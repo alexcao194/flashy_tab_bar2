@@ -45,35 +45,37 @@ class FlashyTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bg = (backgroundColor == null) ? Theme.of(context).colorScheme.primaryContainer : backgroundColor;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: bg,
-        boxShadow: showElevation ? shadows : [],
-      ),
-      child: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: height + iconSizeEffectCalculator(iconSize),
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: items.map((item) {
-              var index = items.indexOf(item);
-              return Expanded(
-                child: GestureDetector(
-                  onTap: () => onItemSelected(index),
-                  child: _FlashTabBarItem(
-                    item: item,
-                    tabBarHeight: height,
-                    iconSize: iconSize,
-                    isSelected: index == selectedIndex,
-                    backgroundColor: bg!,
-                    animationDuration: animationDuration,
-                    animationCurve: animationCurve,
+    return ClipRRect(
+      child: Container(
+        decoration: BoxDecoration(
+          color: bg,
+          boxShadow: showElevation ? shadows : [],
+        ),
+        child: SafeArea(
+          child: Container(
+            width: double.infinity,
+            height: height + iconSizeEffectCalculator(iconSize),
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: items.map((item) {
+                var index = items.indexOf(item);
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => onItemSelected(index),
+                    child: _FlashTabBarItem(
+                      item: item,
+                      tabBarHeight: height,
+                      iconSize: iconSize,
+                      isSelected: index == selectedIndex,
+                      backgroundColor: bg!,
+                      animationDuration: animationDuration,
+                      animationCurve: animationCurve,
+                    ),
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              }).toList(),
+            ),
           ),
         ),
       ),
